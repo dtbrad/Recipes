@@ -11,6 +11,11 @@ angular
       url:'welcome',
       templateUrl: 'app/views/welcome.html'
     })
+    .state('home.newRecipe', {
+      url:'recipes/new',
+      controller: 'NewRecipeController as ctrl',
+      templateUrl: 'app/views/newRecipe.html'
+    })
     .state('home.recipe', {
       url:'recipes/:id',
       controller: 'RecipeController as ctrl',
