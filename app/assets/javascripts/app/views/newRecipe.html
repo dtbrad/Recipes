@@ -1,1 +1,17 @@
 <h4 class="text-center">Create a New Recipe </h4>
+
+<form name="newRecipe" ng-submit="newRecipe.$valid && ctrl.submit()" novalidate>
+  <h5>Recipe Title: <input ng-model="ctrl.recipe.title" name="recipeTitle" required></h5>
+
+
+
+
+  <div ng-repeat="step in ctrl.recipe.directions track by $index">
+    <input type="text" ng-model="step.desc" placeholder="Enter a step">
+    <button ng-show="ctrl.showAddStep(step)" ng-click="ctrl.addNewStep()">Add another step</button>
+  </div>
+
+  <input type="submit" value="submit recipe">
+
+
+</form>
