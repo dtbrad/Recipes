@@ -1,0 +1,17 @@
+<h4 class="text-center"> {{ ctrl.recipe.title }} </h4>
+
+<h5> Ingredients </h5>
+
+<ul>
+  <li ng-repeat="ingredient in ctrl.recipe.recipe_ingredients">
+    {{ ingredient.ingredient_name }}<span ng-show="ingredient.quantity_prep != null">, {{ ingredient.quantity_prep}} </span>
+  </li>
+</ul>
+
+<h5> Directions </h5>
+
+<ol>
+  <li ng-repeat="step in ctrl.recipe.steps" >
+    <p> {{ step }} </p>
+  </li>
+</ol>

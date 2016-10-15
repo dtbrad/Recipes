@@ -1,0 +1,7 @@
+<h4 class="text-center"> Recipe Index </h4>
+
+<ul ng-repeat="recipe in ctrl.recipes">
+  <a ui-sref="home.recipe({id: recipe.id})" class="list-group-item">
+    {{recipe.title}}
+  </a>
+</ul>
