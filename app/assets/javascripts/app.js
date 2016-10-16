@@ -14,7 +14,12 @@ angular
     .state('home.newRecipe', {
       url:'recipes/new',
       controller: 'NewRecipeController as ctrl',
-      templateUrl: 'app/views/newRecipe.html'
+      templateUrl: 'app/views/newRecipe.html',
+      resolve: {
+        ingredients: ["DataService", function (DataService) {
+          return DataService.getIngredients();
+        }]
+      }
     })
     .state('home.recipe', {
       url:'recipes/:id',

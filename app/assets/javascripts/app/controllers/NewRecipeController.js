@@ -1,5 +1,5 @@
-NewRecipeController.$inject = ["$state", "$stateParams", "DataService"];
-function NewRecipeController($state, $stateParams, DataService) {
+NewRecipeController.$inject = ["$state", "$stateParams", "DataService", "ingredients"];
+function NewRecipeController($state, $stateParams, DataService, ingredients) {
 
   ctrl = this
   ctrl.recipe = { title: "", directions: [{id: 'step1', desc: ""}] }
@@ -12,6 +12,9 @@ function NewRecipeController($state, $stateParams, DataService) {
   ctrl.showAddStep = function(step) {
     return step.id === ctrl.recipe.directions[ctrl.recipe.directions.length-1].id;
   };
+
+
+
 
   ctrl.submit = function(){
     var array = [];

@@ -1,6 +1,6 @@
 <h4 class="text-center">Create a New Recipe </h4>
 
-<form name="newRecipe" ng-submit="newRecipe.$valid && ctrl.submit()" novalidate>
+<form name="newRecipe" novalidate>
 
   <h5>Recipe Title: <input ng-model="ctrl.recipe.title" name="recipeTitle" required></h5>
 
@@ -9,7 +9,7 @@
     <button type="button" ng-show="ctrl.showAddStep(step)" ng-click="ctrl.addNewStep()">Add another step</button>
   </div>
 
-  <input type="submit" value="submit recipe">
+  <input type="button" value="submit recipe" ng-click="newRecipe.$valid && ctrl.submit()">
 
 
 </form>
