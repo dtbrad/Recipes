@@ -3,7 +3,6 @@ function RecipeController($state, $stateParams, recipe) {
   ctrl = this
   ctrl.recipe = recipe.data
   ctrl.recipe.steps = JSON.parse(recipe.data.directions)
-
 }
 
 angular
