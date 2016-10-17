@@ -1,12 +1,19 @@
 <h4 class="text-center">Create a New Recipe </h4>
 
+
 <form name="newRecipe" novalidate>
 
   <h5>Recipe Title: <input ng-model="ctrl.recipe.title" name="recipeTitle" required></h5>
 
+  <div ng-repeat="ing in ctrl.recipe.ingredients">
+    <select name="selectIngredient" ng-model="selectedIngredient" ng-options='x.name for x in ctrl.ingredients'><option value="">Select</option></select>
+    <input type="text" ng-model="ing.desc" placeholder="Enter another ingredient">
+    <button type="button" ng-click="ctrl.addNewField(ing, ctrl.recipe.ingredients)" ng-show="ctrl.showAddField(ing, ctrl.recipe.ingredients)">Add another ingredient</button>
+  </div>
+
   <div ng-repeat="step in ctrl.recipe.directions">
     <input type="text" ng-model="step.desc" placeholder="Enter a step">
-    <button type="button" ng-show="ctrl.showAddStep(step)" ng-click="ctrl.addNewStep()">Add another step</button>
+    <button type="button" ng-show="ctrl.showAddField(step, ctrl.recipe.directions)" ng-click="ctrl.addNewField(step, ctrl.recipe.directions)">Add another step</button>
   </div>
 
   <input type="button" value="submit recipe" ng-click="newRecipe.$valid && ctrl.submit()">
