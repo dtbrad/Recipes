@@ -1,0 +1,8 @@
+  <div ng-repeat="ing in ctrl.recipe.ingredients">
+    <input type="text" ng-model="ing.content" placeholder="Enter an ingredient">
+    <button type="button"
+            ng-click="ctrl.addNewField(ing, ctrl.recipe.ingredients)"
+            ng-show="ctrl.showAddField(ing, ctrl.recipe.ingredients)">
+            Add another ingredient
+    </button>
+  </div>

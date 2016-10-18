@@ -1,0 +1,8 @@
+<div>
+  <input type="text" ng-model="ingCtrl.ing.content" placeholder="Enter an ingredient">
+  <button type="button"
+          ng-click="ctrl.addNewField(ingCtrl.ing, ingCtrl.recipeIngredients)"
+          ng-show="ctrl.showAddField(ingCtrl.ing, ingCtrl.recipeIngredients)">
+          Add another ingredient
+  </button>
+</div>
