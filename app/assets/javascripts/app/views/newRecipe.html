@@ -40,11 +40,11 @@
       <div style="color:red">
 
         <div ng-messages="ingredientsForm.ingredientName.$error">
-          <div ng-message="required" ng-if="ingredientsForm.ingredientName.$touched" > Not all of your ingredient entries have an ingredient name </div>
+          <div ng-message="required" ng-if="ingredientsForm.ingredientName.$touched" > This ingredient entry lacks a name </div>
         </div>
 
         <div ng-messages="ingredientsForm.ingredientQuantity.$error">
-          <div ng-message="required" ng-if="ingredientsForm.ingredientQuantity.$touched"> Not all of your ingredient entries have an ingredient quantity </div>
+          <div ng-message="required" ng-if="ingredientsForm.ingredientQuantity.$touched"> This ingredient entry lacks a quantity </div>
         </div>
 
       </div>
@@ -75,7 +75,7 @@
       </button>
 
       <div style="color:red" ng-messages="directionsForm.direction.$error">
-        <div ng-message="required" ng-if="directionsForm.direction.$touched"> Not all directions filled out </div>
+        <div ng-message="required" ng-if="directionsForm.direction.$touched"> Fill in direction text box or remove it </div>
       </div>
 
     </ng-form>
