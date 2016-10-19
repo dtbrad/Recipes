@@ -1,5 +1,5 @@
-NewRecipeController.$inject = ["$state", "$stateParams", "DataService", "ingredients"];
-function NewRecipeController($state, $stateParams, DataService, ingredients) {
+NewRecipeController.$inject = ["flash", "$state", "$stateParams", "DataService", "ingredients"];
+function NewRecipeController(flash, $state, $stateParams, DataService, ingredients) {
 
   ctrl = this
   ctrl.ingredients = ingredients.data
@@ -41,7 +41,8 @@ function NewRecipeController($state, $stateParams, DataService, ingredients) {
     DataService.postRecipe(ctrl.recipe)
     .then(function(result){
       $state.go('home.recipe', {id: result.data.id});
-      alert("recipe created")
+      // alert("recipe created")
+      flash.success = 'Recipe created!';
     });
   };
 

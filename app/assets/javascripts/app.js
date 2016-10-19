@@ -1,6 +1,6 @@
 angular
-.module('app', ['ui.router', 'templates', 'ngMessages'])
-.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+.module('app', ['angular-flash.service', 'angular-flash.flash-alert-directive', 'ui.router', 'templates', 'ngMessages'])
+.config(["flashProvider","$stateProvider", "$urlRouterProvider", function(flashProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
       url:'/',
@@ -42,4 +42,5 @@ angular
       }
     })
     $urlRouterProvider.otherwise('welcome');
+    flashProvider.errorClassnames.push('alert-danger');
 }])
