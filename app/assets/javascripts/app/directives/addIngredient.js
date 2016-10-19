@@ -7,6 +7,7 @@ function addIngredient () {
       ingCtrl = this;
     },
     link: function (scope, element, attrs, ctrl) {
+      debugger;
       var sel = element[0].querySelector('select');
       sel.addEventListener('change', function(){
         if (ingCtrl.selectedIngredient)

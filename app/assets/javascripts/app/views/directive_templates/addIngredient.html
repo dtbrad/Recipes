@@ -1,4 +1,4 @@
-<div>
+<div ng-form="ingForm">
 
   <select name="selectIngredient"
           ng-model="ingCtrl.selectedIngredient"
@@ -6,11 +6,13 @@
           <option value="">Select</option>
   </select>
 
-  <input ng-show="!ingCtrl.selectedIngredient" type="text" ng-model="ingCtrl.ing.name" placeholder="Enter an ingredient">
-  <input type="text" ng-model="ingCtrl.ing.quantityPrep" placeholder="Enter quantity">
+  <input ng-required="!ing.Ctrl.selectedIngredient" ng-show="!ingCtrl.selectedIngredient" name="textName" type="text" ng-model="ingCtrl.ing.name" placeholder="Enter an ingredient">
+
+  <input required type="text" name="quantPrep" ng-model="ingCtrl.ing.quantityPrep" placeholder="Enter quantity">
 
   <button type="button"
-          ng-click="ctrl.removeField(ingCtrl.ing, ingCtrl.recipeIngredients)">
+          ng-click="ctrl.removeField(ingCtrl.ing, ingCtrl.recipeIngredients)"
+          ng-show="ctrl.showRemoveField(ingCtrl.ing, ingCtrl.recipeIngredients)">
           Remove this step
   </button>
 
@@ -19,5 +21,17 @@
           ng-show="ctrl.showAddField(ingCtrl.ing, ingCtrl.recipeIngredients)">
           Add another ingredient
   </button>
+
+  <div style="color:red">
+
+      <div ng-messages="ingForm.quantPrep.$error">
+        <div ng-message="required" ng-if="ingForm.quantPrep.$touched" > quantity is required</div>
+      </div>
+
+      <div ng-messages="ingForm.textName.$error">
+        <div ng-message="required" ng-if="ingForm.textName.$touched"> ingredient is required</div>
+      </div>
+
+  </div>
 
 </div>
