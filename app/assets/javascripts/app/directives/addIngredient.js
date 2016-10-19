@@ -14,7 +14,8 @@ function addIngredient () {
         else {
           ingCtrl.ing.name = ""
         }
-      })
+        scope.$apply();
+      });
     }
   }
 }

@@ -16,6 +16,11 @@ function NewRecipeController($state, $stateParams, DataService, ingredients) {
     array.push({'id':newId});
   };
 
+  ctrl.removeField = function(field, array) {
+    var index = array.indexOf(field)
+    array.splice(index, 1)
+  }
+
   ctrl.showAddField = function(field, array) {
     return field.id === array[array.length-1].id;
   };
