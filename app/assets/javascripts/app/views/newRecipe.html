@@ -5,9 +5,9 @@
   <h5>Recipe Title: <input ng-model="ctrl.recipe.title" name="recipeTitle" required></h5>
 
   <add-ingredient ing="ing"
-                  recipe-ingredients="ctrl.recipe.ingredients"
+                  recipe-ingredients="ctrl.recipe.ingredients_attributes"
                   ingredients = "ctrl.ingredients"
-                  ng-repeat="ing in ctrl.recipe.ingredients">
+                  ng-repeat="ing in ctrl.recipe.ingredients_attributes">
   </add-ingredient>
 
   <div ng-repeat="step in ctrl.recipe.directions">

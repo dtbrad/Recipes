@@ -1,8 +1,18 @@
 <div>
-  <input type="text" ng-model="ingCtrl.ing.content" placeholder="Enter an ingredient">
+
+  <select name="selectIngredient"
+          ng-model="ingCtrl.selectedIngredient"
+          ng-options='x.name for x in ingCtrl.ingredients'>
+          <option value="">Select</option>
+  </select>
+
+  <input ng-show="!ingCtrl.selectedIngredient" type="text" ng-model="ingCtrl.ing.name" placeholder="Enter an ingredient">
+  <input type="text" ng-model="ingCtrl.ing.quantityPrep" placeholder="Enter quantity">
+
   <button type="button"
           ng-click="ctrl.addNewField(ingCtrl.ing, ingCtrl.recipeIngredients)"
           ng-show="ctrl.showAddField(ingCtrl.ing, ingCtrl.recipeIngredients)">
           Add another ingredient
   </button>
+
 </div>

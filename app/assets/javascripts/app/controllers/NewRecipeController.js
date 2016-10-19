@@ -6,12 +6,14 @@ function NewRecipeController($state, $stateParams, DataService, ingredients) {
   ctrl.recipe = {
                   title: "",
                   directions: [{id: 'step1', content: ""}],
-                  ingredients: [{id: 'ing1', content: ""}]
+                  ingredients_attributes: [{id: 'ing1', name: "", quantityPrep: ""}]
                 }
 
   ctrl.addNewField = function(field, array) {
-    var newFieldNo = array.length+1;
-    array.push({'id':'step'+newFieldNo});
+    var idText = field.id.replace(/\d/,"")
+    var newFieldNo = parseInt(field.id.replace(/[a-z]+/,"")) + 1
+    var newId = idText + newFieldNo
+    array.push({'id':newId});
   };
 
   ctrl.showAddField = function(field, array) {
@@ -19,7 +21,7 @@ function NewRecipeController($state, $stateParams, DataService, ingredients) {
   };
 
   ctrl.submit = function(){
-    ctrl.recipe.directions = ctrl.recipe.directions.map(function(c){return c.content});
+    ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){return d.content});
     DataService.postRecipe(ctrl.recipe)
     .then(function(result){
       $state.go('home.recipe', {id: result.data.id});
