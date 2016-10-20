@@ -1,112 +1,118 @@
 <h4 class="text-center">Create a New Recipe </h4>
 
+<div class="row">
 
-<form name="newRecipe" ng-submit="newRecipe.$valid && ctrl.submit()"novalidate>
-
-  <div class="form-group">
-
-    <label>Recipe Title</label>
-    <input  name="title"
-            class="form-control"
-            ng-model="ctrl.recipe.title"
-            name="recipeTitle"
-            placeholder="Enter a title"
-            required >
-    <div style="color:red" ng-messages="newRecipe.title.$error" ng-if="newRecipe.title.$touched || newRecipe.$submitted">
-      <div ng-message="required">Recipe requires a title</div>
-    </div>
-
+  <div class="col-md-6 well">
+    <display-recipe recipe="ctrl.recipe"></display-recipe>
   </div>
+  
+  <div class="col-md-6">
+    <form name="newRecipe" ng-submit="newRecipe.$valid && ctrl.submit()"novalidate>
 
-  <label>Select or enter an ingredient</label>
-
-  <div class="form-group" ng-repeat="ing in ctrl.recipe.ingredients_attributes">
-    <ng-form name="ingredientsForm">
-
-      <select class="form-control"
-              id="exampleSelect1"
-              name="selectIngredient"
-              ng-model="selectedIngredient"
-              ng-options='x.name for x in ctrl.ingredients'
-              ng-change="ctrl.setIngredient(selectedIngredient, ing)">
-              <option value="">Select an ingredient from this menu...</option>
-      </select>
-
-      <input  class="form-control"
-              type="text"
-              name="ingredientName"
-              ng-show="!selectedIngredient"
-              ng-model="ing.name"
-              placeholder="...or enter your own here"
-              required >
-
-      <input  class="form-control"
-              type="text"
-              name="ingredientQuantity"
-              ng-model="ing.quantityPrep"
-              placeholder="Enter a quantity"
-              required >
-
-      <div style="color:red">
-        <div ng-messages="ingredientsForm.ingredientName.$error">
-          <div ng-message="required" ng-if="ingredientsForm.$$parentForm.$submitted" > This ingredient entry lacks a name </div>
-        </div>
-        <div ng-messages="ingredientsForm.ingredientQuantity.$error">
-          <div ng-message="required" ng-if="ingredientsForm.ingredientQuantity.$touched || ingredientsForm.$$parentForm.$submitted"> This ingredient entry lacks a quantity </div>
+      <div class="form-group">
+        <label>Recipe Title</label>
+        <input  name="title"
+                class="form-control"
+                ng-model="ctrl.recipe.title"
+                name="recipeTitle"
+                placeholder="Enter a title"
+                required >
+        <div style="color:red" ng-messages="newRecipe.title.$error" ng-if="newRecipe.title.$touched || newRecipe.$submitted">
+          <div ng-message="required">Recipe requires a title</div>
         </div>
       </div>
 
-      <button type="button"
-              class="btn btn-primary"
-              ng-click="ctrl.removeField(ing, ctrl.recipe.ingredients_attributes)"
-              ng-show="ctrl.showRemoveField(ing, ctrl.recipe.ingredients_attributes)">
-              Remove this ingredient entry
-      </button>
+      <label>Select or enter an ingredient</label>
 
-      <button type="button"
-              class="btn btn-primary"
-              ng-click="ctrl.addNewField(ing, ctrl.recipe.ingredients_attributes)"
-              ng-show="ctrl.showAddField(ing, ctrl.recipe.ingredients_attributes)">
-              Add another ingredient
-      </button>
+      <div class="form-group" ng-repeat="ing in ctrl.recipe.ingredients_attributes">
+        <ng-form name="ingredientsForm">
 
-    </ng-form>
-  </div>
+          <select class="form-control"
+                  id="exampleSelect1"
+                  name="selectIngredient"
+                  ng-model="selectedIngredient"
+                  ng-options='x.name for x in ctrl.ingredients'
+                  ng-change="ctrl.setIngredient(selectedIngredient, ing)">
+                  <option value="">Select an ingredient from this menu...</option>
+          </select>
 
-  <label>Directions</label>
-  <div class="form-group" ng-repeat="step in ctrl.recipe.directions">
-    <ng-form name="directionsForm">
+          <input  class="form-control"
+                  type="text"
+                  name="ingredientName"
+                  ng-show="!selectedIngredient"
+                  ng-model="ing.name"
+                  placeholder="...or enter your own here"
+                  required >
 
-      <textarea
-              class="form-control"
-              name="direction"
-              ng-model="step.content"
-              placeholder="Enter an individual step in the text box and click button below to generate additional text boxes"
-              required>
-      </textarea>
+          <input  class="form-control"
+                  type="text"
+                  name="ingredientQuantity"
+                  ng-model="ing.quantityPrep"
+                  placeholder="Enter a quantity"
+                  required >
 
-      <div style="color:red" ng-messages="directionsForm.direction.$error">
-        <div ng-message="required" ng-if="directionsForm.direction.$touched || directionsForm.$$parentForm.$submitted"> This direction text box is blank </div>
+          <div class="form-group" style="color:red">
+            <div ng-messages="ingredientsForm.ingredientName.$error">
+              <div ng-message="required" ng-if="ingredientsForm.$$parentForm.$submitted" > This ingredient entry lacks a name </div>
+            </div>
+            <div ng-messages="ingredientsForm.ingredientQuantity.$error">
+              <div ng-message="required" ng-if="ingredientsForm.ingredientQuantity.$touched || ingredientsForm.$$parentForm.$submitted"> This ingredient entry lacks a quantity </div>
+            </div>
+          </div>
+
+          <button type="button"
+                  class="btn btn-primary"
+                  ng-click="ctrl.removeField(ing, ctrl.recipe.ingredients_attributes)"
+                  ng-show="ctrl.showRemoveField(ing, ctrl.recipe.ingredients_attributes)">
+                  Remove this ingredient entry
+          </button>
+
+          <button type="button"
+                  class="btn btn-primary"
+                  ng-click="ctrl.addNewField(ing, ctrl.recipe.ingredients_attributes)"
+                  ng-show="ctrl.showAddField(ing, ctrl.recipe.ingredients_attributes)">
+                  Add another ingredient
+          </button>
+
+        </ng-form>
       </div>
 
-      <button type="button"
-              class="btn btn-primary"
-              ng-click="ctrl.removeField(step, ctrl.recipe.directions)"
-              ng-show="ctrl.showRemoveField(step, ctrl.recipe.directions)">
-              Remove this step
-      </button>
+      <label>Directions</label>
 
-      <button type="button"
-              class="btn btn-primary"
-              ng-click="ctrl.addNewField(step, ctrl.recipe.directions)"
-              ng-show="ctrl.showAddField(step, ctrl.recipe.directions)">
-              Add another step
-      </button>
+      <div class="form-group" ng-repeat="step in ctrl.recipe.directions">
+        <ng-form name="directionsForm">
 
-    </ng-form>
+          <textarea
+                  class="form-control"
+                  name="direction"
+                  ng-model="step.content"
+                  placeholder="Enter an individual step in the text box and click button below to generate additional text boxes"
+                  required>
+          </textarea>
+
+          <div class="form-group" style="color:red" ng-messages="directionsForm.direction.$error">
+            <div ng-message="required" ng-if="directionsForm.direction.$touched || directionsForm.$$parentForm.$submitted"> This direction text box is blank </div>
+          </div>
+
+          <button type="button"
+                  class="btn btn-primary"
+                  ng-click="ctrl.removeField(step, ctrl.recipe.directions)"
+                  ng-show="ctrl.showRemoveField(step, ctrl.recipe.directions)">
+                  Remove this step
+          </button>
+
+          <button type="button"
+                  class="btn btn-primary"
+                  ng-click="ctrl.addNewField(step, ctrl.recipe.directions)"
+                  ng-show="ctrl.showAddField(step, ctrl.recipe.directions)">
+                  Add another step
+          </button>
+
+        </ng-form>
+      </div>
+
+      <input type="submit" class="btn btn-primary" value="submit recipe">
+
+    </form>
   </div>
-
-  <input type="submit" class="btn btn-primary" value="submit recipe">
-
-
-</form>
+</div>

@@ -41,7 +41,6 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
     DataService.postRecipe(ctrl.recipe)
     .then(function(result){
       $state.go('home.recipe', {id: result.data.id});
-      // alert("recipe created")
       flash.success = 'Recipe created!';
     });
   };
