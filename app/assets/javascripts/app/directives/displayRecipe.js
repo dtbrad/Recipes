@@ -5,7 +5,6 @@ function displayRecipe () {
      controllerAs: 'dis',
      controller: [function(){
        ctrl = this;
-       debugger;
      }]
    }
  }

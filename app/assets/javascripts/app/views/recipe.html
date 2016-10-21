@@ -11,7 +11,7 @@
 <h5> Directions </h5>
 
 <ol>
-  <li ng-repeat="step in ctrl.recipe.steps" >
+  <li ng-repeat="step in ctrl.recipe.directions track by $index" >
     <p> {{ step }} </p>
   </li>
 </ol>

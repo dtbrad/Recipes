@@ -5,7 +5,7 @@
   <div class="col-md-6 well">
     <display-recipe recipe="ctrl.recipe"></display-recipe>
   </div>
-  
+
   <div class="col-md-6">
     <form name="newRecipe" ng-submit="newRecipe.$valid && ctrl.submit()"novalidate>
 
@@ -79,7 +79,7 @@
 
       <label>Directions</label>
 
-      <div class="form-group" ng-repeat="step in ctrl.recipe.directions">
+      <div class="form-group" ng-repeat="step in ctrl.recipe.directions track by $index">
         <ng-form name="directionsForm">
 
           <textarea
@@ -90,7 +90,7 @@
                   required>
           </textarea>
 
-          <div class="form-group" style="color:red" ng-messages="directionsForm.direction.$error">
+          <div ng-show="!ctrl.transformed" class="form-group" style="color:red" ng-messages="directionsForm.direction.$error">
             <div ng-message="required" ng-if="directionsForm.direction.$touched || directionsForm.$$parentForm.$submitted"> This direction text box is blank </div>
           </div>
 

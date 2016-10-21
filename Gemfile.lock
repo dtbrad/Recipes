@@ -62,6 +62,7 @@ GEM
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
+    json (1.8.3)
     jsonapi (0.1.1.beta5)
       jsonapi-parser (= 0.1.1.beta2)
       jsonapi-renderer (= 0.1.1.beta1)
@@ -164,6 +165,7 @@ DEPENDENCIES
   angular-rails-templates
   byebug
   jbuilder (~> 2.5)
+  json
   listen (~> 3.0.5)
   pg (~> 0.18)
   pry

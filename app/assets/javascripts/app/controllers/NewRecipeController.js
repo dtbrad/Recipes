@@ -1,8 +1,9 @@
 NewRecipeController.$inject = ["flash", "$state", "$stateParams", "DataService", "ingredients"];
 function NewRecipeController(flash, $state, $stateParams, DataService, ingredients) {
 
-  ctrl = this
-  ctrl.ingredients = ingredients.data
+  var ctrl = this;
+  ctrl.transformed = false;
+  ctrl.ingredients = ingredients.data;
   ctrl.recipe = {
                   title: "",
                   directions: [{id: 'step1', content: ""}],
@@ -37,6 +38,7 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
   }
 
   ctrl.submit = function(){
+    ctrl.transformed = true
     ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){return d.content});
     DataService.postRecipe(ctrl.recipe)
     .then(function(result){
