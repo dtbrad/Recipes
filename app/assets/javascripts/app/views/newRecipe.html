@@ -2,30 +2,39 @@
 <h4 ng-if="ctrl.recipe.id" class="text-center">Edit Recipe </h4>
 <div class="row">
 
-  <div class="col-md-6 well">
-    <display-recipe recipe="ctrl.recipe"></display-recipe>
-  </div>
 
-  <div class="col-md-6">
+  <div class="col-md-12">
     <form name="newRecipe" ng-submit="newRecipe.$valid && ctrl.submit()"novalidate>
 
-      <div class="form-group">
+      <div class="form-group" ng-hide="ctrl.titleDisplay">
         <label>Recipe Title</label>
         <input  name="title"
                 class="form-control"
                 ng-model="ctrl.recipe.title"
                 name="recipeTitle"
                 placeholder="Enter a title"
-                required >
+                required>
+
+        <button type="button"
+                class="btn btn-primary"
+                ng-click="ctrl.titleDisplay = !ctrl.titleDisplay">
+                display
+        </button>
+
         <div style="color:red" ng-messages="newRecipe.title.$error" ng-if="newRecipe.title.$touched || newRecipe.$submitted">
           <div ng-message="required">Recipe requires a title</div>
         </div>
+
       </div>
 
-      <label>Select or enter an ingredient</label>
+      <div ng-show="ctrl.titleDisplay">
+        <h4 class="text-center"><a href="" ng-click="ctrl.titleDisplay = !ctrl.titleDisplay">{{ ctrl.recipe.title}}</a></h4>
+      </div>
+
+      <label>Ingredients</label>
 
       <div ng-repeat="ing in ctrl.recipe.ingredients_attributes">
-        <div class="form-group">
+        <div class="form-group" ng-hide="ing.display">
           <ng-form name="ingredientsForm">
 
             <select class="form-control"
@@ -52,20 +61,17 @@
                     placeholder="Enter a quantity"
                     required >
 
-            <div class="form-group" style="color:red">
-              <div ng-messages="ingredientsForm.ingredientName.$error">
-                <div ng-message="required" ng-if="ingredientsForm.$$parentForm.$submitted" > This ingredient entry lacks a name </div>
-              </div>
-              <div ng-messages="ingredientsForm.ingredientQuantity.$error">
-                <div ng-message="required" ng-if="ingredientsForm.ingredientQuantity.$touched || ingredientsForm.$$parentForm.$submitted"> This ingredient entry lacks a quantity </div>
-              </div>
-            </div>
+            <button type="button"
+                    class="btn btn-primary"
+                    ng-click="ing.display = true">
+                    display
+            </button>
 
             <button type="button"
                     class="btn btn-primary"
                     ng-click="ctrl.removeField(ing, ctrl.recipe.ingredients_attributes)"
                     ng-show="ctrl.showRemoveField(ing, ctrl.recipe.ingredients_attributes)">
-                    Remove the entry above
+                    Remove entry
             </button>
 
             <button type="button"
@@ -76,7 +82,25 @@
 
           </ng-form>
         </div>
-        <h5 ng-show="ctrl.edit"> {{ ing }} </h5>
+        <div ng-show="ing.display">
+          <li class="list-group-item">
+            <span><a href="" ng-click="ing.display = !ing.display">
+              {{ ing.ingredient_name }}, {{ ing.quantity_prep }}</a>
+            <span class="tag tag-default tag-pill pull-right">
+              <a href="" ng-click="ctrl.addNewField(ing, ctrl.recipe.ingredients_attributes)"> + </a>
+              <span ng-show="ctrl.showRemoveField(ing, ctrl.recipe.ingredients_attributes)"> | <a href="" ng-click="ctrl.removeField(ing, ctrl.recipe.ingredients_attributes)"> x </a></span>
+            </span></li>
+        </div>
+
+        <div class="form-group" style="color:red">
+          <div ng-messages="ingredientsForm.ingredientName.$error">
+            <div ng-message="required" ng-if="ingredientsForm.$$parentForm.$submitted" > This ingredient entry lacks a name </div>
+          </div>
+          <div ng-messages="ingredientsForm.ingredientQuantity.$error">
+            <div ng-message="required" ng-if="ingredientsForm.ingredientQuantity.$touched || ingredientsForm.$$parentForm.$submitted"> This ingredient entry lacks a quantity </div>
+          </div>
+        </div>
+
       </div>
 
       <label>Directions</label>
@@ -116,4 +140,5 @@
 
     </form>
   </div>
+</div>
 </div>
