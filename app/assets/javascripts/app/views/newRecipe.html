@@ -1,5 +1,5 @@
 <h4 ng-if="!ctrl.recipe.id" class="text-center">Create a New Recipe </h4>
-<h4 ng-if="ctrl.recipe.id" class="text-center">Edit Recipe </h4>
+<h4 ng-if="ctrl.edit" class="text-center">Edit Recipe </h4>
 <div class="row">
 
 
@@ -28,7 +28,8 @@
       </div>
 
       <div ng-show="ctrl.titleDisplay">
-        <h4 class="text-center"><a href="" ng-click="ctrl.titleDisplay = !ctrl.titleDisplay">{{ ctrl.recipe.title}}</a></h4>
+        <h4 ng-show="!ctrl.edit" class="text-center">{{ ctrl.recipe.title}} <a href="" ng-click="ctrl.edit=true"> (edit)</a></h4>
+        <h4 ng-show="ctrl.edit"class="text-center"><a href="" ng-click="ctrl.titleDisplay = !ctrl.titleDisplay">{{ ctrl.recipe.title}}</a></h4>
       </div>
 
       <label>Ingredients</label>
@@ -82,7 +83,10 @@
 
           </ng-form>
         </div>
-        <div ng-show="ing.display">
+
+        <li class="list-group-item" ng-show="!ctrl.edit">{{ ing.ingredient_name }}, {{ ing.quantity_prep }}</li>
+
+        <div ng-show="ctrl.edit && ing.display">
           <li class="list-group-item">
             <span><a href="" ng-click="ing.display = !ing.display">
               {{ ing.ingredient_name }}, {{ ing.quantity_prep }}</a>
@@ -142,7 +146,10 @@
 
           </ng-form>
         </div>
-        <div ng-show="step.display">
+
+        <li class="list-group-item" ng-show="!ctrl.edit">{{ ctrl.recipe.directions.indexOf(step) + 1}}. {{ step.content }}</li>
+
+        <div ng-show="ctrl.edit && step.display">
           <li class="list-group-item">
             <span><a href="" ng-click="step.display = !step.display">
               {{ ctrl.recipe.directions.indexOf(step) + 1}}. {{ step.content }}</a>

@@ -13,6 +13,7 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
       ctrl.titleDisplay = true
       ctrl.recipe.ingredients_attributes.forEach(function(ing){ing.display = true});
       ctrl.recipe.directions.forEach(function(step){step.display = true});
+      ctrl.edit = false
     }
   else
     {
