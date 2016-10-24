@@ -21,7 +21,6 @@
           <div ng-message="required">Recipe requires a title</div>
         </div>
       </div>
-      <h5 ng-show="ctrl.edit"> {{ ctrl.recipe.title }} </h5>
 
       <label>Select or enter an ingredient</label>
 
@@ -44,7 +43,7 @@
                     ng-show="!selectedIngredient"
                     ng-model="ing.ingredient_name"
                     placeholder="...or enter your own here"
-                    required >
+                    ng-required="!selectedIngredient">
 
             <input  class="form-control"
                     type="text"

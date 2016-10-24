@@ -4,31 +4,29 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
   var ctrl = this
   ctrl.transformed = false
   ctrl.ingredients = ingredients.data
-  if ($stateParams.id) {
-    ctrl.recipe = recipe.data
-    ctrl.recipe.ingredients_attributes = ctrl.recipe.recipe_ingredients
-    delete ctrl.recipe.recipe_ingredients
-    ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){
-      return {content: d}
+  if ($stateParams.id)
+    {
+      ctrl.recipe = recipe.data
+      ctrl.recipe.ingredients_attributes = ctrl.recipe.recipe_ingredients
+      delete ctrl.recipe.recipe_ingredients
+      ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){
+        return {content: d}
 
-    });
-  }
-    else {
+      });
+    }
+  else
+    {
       ctrl.recipe = {
                     title: "",
                     directions: [{content: ""}],
                     ingredients_attributes: [{ingredient_name: "", quantity_prep: ""}]
                   }
-  }
-
+    }
 
   ctrl.addNewField = function(field, array) {
     var index = array.indexOf(field)
-    // debugger;
-    // var newFieldNo = parseInt(field.id.replace(/[a-z]+/,"")) + 1
-    // var newId = idText + newFieldNo
     array.splice((index +1), 0, {content: ""});
-    // debugger;
+
   };
 
   ctrl.removeField = function(field, array) {
@@ -46,17 +44,14 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
 
   ctrl.setIngredient = function(selectedValue, ingredientEntry){
     if (selectedValue)
-    { ingredientEntry.name = selectedValue.name }
+    { ingredientEntry.ingredient_name = selectedValue.name }
     else
-    { ingredientEntry.name = "" }
+    { ingredientEntry.ingredient_name = "" }
   }
 
   ctrl.submit = function(){
     ctrl.transformed = true
     ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){return d.content});
-    // ctrl.recipe.directions_attributes = ctrl.recipe.directions;
-    // delete ctrl.recipe.directions
-    // debugger;
     if (!ctrl.recipe.id) {
       DataService.postRecipe(ctrl.recipe)
       .then(function(result){
@@ -65,9 +60,6 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
       });
     }
     else {
-
-      // ctrl.recipe.ingredients_attributes.forEach(function(i){delete i.id});
-
       DataService.updateRecipe(ctrl.recipe)
       .then(function(result){
         $state.go($state.$current, null, { reload: true });
