@@ -106,34 +106,52 @@
       <label>Directions</label>
 
       <div class="form-group" ng-repeat="step in ctrl.recipe.directions track by $index">
-        <ng-form name="directionsForm">
+        <div class="form-group" ng-hide="step.display">
+          <ng-form name="directionsForm">
 
-          <textarea
-                  class="form-control"
-                  name="direction"
-                  ng-model="step.content"
-                  placeholder="Enter an individual step in the text box and click button below to generate additional text boxes"
-                  required>
-          </textarea>
+            <textarea
+                    class="form-control"
+                    name="direction"
+                    ng-model="step.content"
+                    placeholder="Enter an individual step in the text box and click button below to generate additional text boxes"
+                    required>
+            </textarea>
 
-          <div ng-show="!ctrl.transformed" class="form-group" style="color:red" ng-messages="directionsForm.direction.$error">
-            <div ng-message="required" ng-if="directionsForm.direction.$touched || directionsForm.$$parentForm.$submitted"> This direction text box is blank </div>
-          </div>
+            <div ng-show="!ctrl.transformed" class="form-group" style="color:red" ng-messages="directionsForm.direction.$error">
+              <div ng-message="required" ng-if="directionsForm.direction.$touched || directionsForm.$$parentForm.$submitted"> This direction text box is blank </div>
+            </div>
 
-          <button type="button"
-                  class="btn btn-primary"
-                  ng-click="ctrl.removeField(step, ctrl.recipe.directions)"
-                  ng-show="ctrl.showRemoveField(step, ctrl.recipe.directions)">
-                  Remove the step above
-          </button>
+            <button type="button"
+                    class="btn btn-primary"
+                    ng-click="step.display = true">
+                    display
+            </button>
 
-          <button type="button"
-                  class="btn btn-primary"
-                  ng-click="ctrl.addNewField(step, ctrl.recipe.directions)">
-                  Insert another direction here
-          </button>
+            <button type="button"
+                    class="btn btn-primary"
+                    ng-click="ctrl.removeField(step, ctrl.recipe.directions)"
+                    ng-show="ctrl.showRemoveField(step, ctrl.recipe.directions)">
+                    Remove the step above
+            </button>
 
-        </ng-form>
+            <button type="button"
+                    class="btn btn-primary"
+                    ng-click="ctrl.addNewField(step, ctrl.recipe.directions)">
+                    Insert another direction here
+            </button>
+
+          </ng-form>
+        </div>
+        <div ng-show="step.display">
+          <li class="list-group-item">
+            <span><a href="" ng-click="step.display = !step.display">
+              {{ ctrl.recipe.directions.indexOf(step) + 1}}. {{ step.content }}</a>
+            <span class="tag tag-default tag-pill pull-right">
+              <a href="" ng-click="ctrl.addNewField(step, ctrl.recipe.directions)"> + </a>
+              <span ng-show="ctrl.showRemoveField(step, ctrl.recipe.directions)"> | <a href="" ng-click="ctrl.removeField(step, ctrl.recipe.directions)"> x </a></span>
+            </span></li>
+        </div>
+
       </div>
 
       <input type="submit" class="btn btn-primary" value="submit recipe">

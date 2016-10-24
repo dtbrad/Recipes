@@ -9,10 +9,10 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
       ctrl.recipe = recipe.data
       ctrl.recipe.ingredients_attributes = ctrl.recipe.recipe_ingredients
       delete ctrl.recipe.recipe_ingredients
-      ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){
-        return {content: d}
-
-      });
+      ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){ return {content: d}});
+      ctrl.titleDisplay = true
+      ctrl.recipe.ingredients_attributes.forEach(function(ing){ing.display = true});
+      ctrl.recipe.directions.forEach(function(step){step.display = true});
     }
   else
     {
