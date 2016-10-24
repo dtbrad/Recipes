@@ -1,7 +1,11 @@
 <h4 class="text-center"> Recipe Index </h4>
 
-<ul ng-repeat="recipe in ctrl.recipes">
+<div class="list-group-item">
+<input type="text" class="form-control" placeholder="search by ingredient" ng-model="ctrl.search">
+</div>
+
+<div ng-repeat="recipe in ctrl.recipes | filter: ctrl.search">
   <a ui-sref="home.recipe({id: recipe.id})" class="list-group-item">
     {{recipe.title}}
   </a>
-</ul>
+</div>

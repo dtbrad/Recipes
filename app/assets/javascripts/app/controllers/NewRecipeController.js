@@ -22,6 +22,7 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
                     directions: [{content: ""}],
                     ingredients_attributes: [{ingredient_name: "", quantity_prep: ""}]
                   }
+      ctrl.edit = true
     }
 
   ctrl.addNewField = function(field, array) {
