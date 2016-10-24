@@ -14,14 +14,23 @@ class RecipesController < ApplicationController
   def create
 
     @recipe = Recipe.new(recipe_params)
+
     @recipe.save
     render json: @recipe, status: 201
   end
 
+  def update
+    @recipe = Recipe.find(params[:id])
+
+    @recipe.update(recipe_params)
+    @recipe.save
+  end
+
+
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :directions => [], :ingredients_attributes => [:name, :quantityPrep])
+    params.require(:recipe).permit(:title, :directions => [], :ingredients_attributes => [:id, :ingredient_name, :quantity_prep])
   end
 
 end

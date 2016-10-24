@@ -2,8 +2,8 @@
 <h5> Ingredients: </h5>
 
 <ul>
-  <li ng-repeat="ingredient in dis.recipe.ingredients_attributes" ng-show="ingredient.name != ''">
-    {{ ingredient.name }}<span ng-show="ingredient.quantityPrep">, {{ ingredient.quantityPrep }} </span>
+  <li ng-repeat="ingredient in dis.recipe.ingredients_attributes" ng-show="ingredient.ingredient_name != ''">
+    {{ ingredient.ingredient_name }}<span ng-show="ingredient.quantity_prep">, {{ ingredient.quantity_prep }} </span>
   </li>
 </ul>
 

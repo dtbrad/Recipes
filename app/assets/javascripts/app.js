@@ -16,6 +16,9 @@ angular
       controller: 'NewRecipeController as ctrl',
       templateUrl: 'app/views/newRecipe.html',
       resolve: {
+        recipe: ["$stateParams", "DataService", function ($stateParams, DataService) {
+          return ""
+        }],
         ingredients: ["DataService", function (DataService) {
           return DataService.getIngredients();
         }]
@@ -23,11 +26,14 @@ angular
     })
     .state('home.recipe', {
       url:'recipes/:id',
-      controller: 'RecipeController as ctrl',
-      templateUrl: 'app/views/recipe.html',
+      controller: 'NewRecipeController as ctrl',
+      templateUrl: 'app/views/newRecipe.html',
       resolve: {
         recipe: ["$stateParams", "DataService", function ($stateParams, DataService) {
             return DataService.getRecipe($stateParams.id);
+          }],
+          ingredients: ["DataService", function (DataService) {
+            return DataService.getIngredients();
           }]
       }
     })

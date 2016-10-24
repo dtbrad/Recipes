@@ -15,7 +15,14 @@ function DataService($http) {
   }
 
   this.postRecipe = function(recipe) {
+
     return $http.post('/recipes', {recipe: recipe})
+  }
+
+  this.updateRecipe = function(recipe) {
+    recipe = {recipe}
+
+    return $http.patch('/recipes/' + recipe.recipe.id, recipe )
   }
 
 }

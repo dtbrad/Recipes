@@ -4,7 +4,7 @@ function displayRecipe () {
      templateUrl: 'app/views/directive_templates/displayRecipe.html',
      controllerAs: 'dis',
      controller: [function(){
-       ctrl = this;
+       var ctrl = this;
      }]
    }
  }

@@ -1,20 +1,34 @@
-NewRecipeController.$inject = ["flash", "$state", "$stateParams", "DataService", "ingredients"];
-function NewRecipeController(flash, $state, $stateParams, DataService, ingredients) {
+NewRecipeController.$inject = ["flash", "$state", "$stateParams", "DataService", "ingredients", "recipe"];
+function NewRecipeController(flash, $state, $stateParams, DataService, ingredients, recipe) {
 
-  var ctrl = this;
-  ctrl.transformed = false;
-  ctrl.ingredients = ingredients.data;
-  ctrl.recipe = {
-                  title: "",
-                  directions: [{id: 'step1', content: ""}],
-                  ingredients_attributes: [{id: 'ing1', name: "", quantityPrep: ""}]
-                }
+  var ctrl = this
+  ctrl.transformed = false
+  ctrl.ingredients = ingredients.data
+  if ($stateParams.id) {
+    ctrl.recipe = recipe.data
+    ctrl.recipe.ingredients_attributes = ctrl.recipe.recipe_ingredients
+    delete ctrl.recipe.recipe_ingredients
+    ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){
+      return {content: d}
+
+    });
+  }
+    else {
+      ctrl.recipe = {
+                    title: "",
+                    directions: [{content: ""}],
+                    ingredients_attributes: [{ingredient_name: "", quantity_prep: ""}]
+                  }
+  }
+
 
   ctrl.addNewField = function(field, array) {
-    var idText = field.id.replace(/\d/,"")
-    var newFieldNo = parseInt(field.id.replace(/[a-z]+/,"")) + 1
-    var newId = idText + newFieldNo
-    array.push({'id':newId});
+    var index = array.indexOf(field)
+    // debugger;
+    // var newFieldNo = parseInt(field.id.replace(/[a-z]+/,"")) + 1
+    // var newId = idText + newFieldNo
+    array.splice((index +1), 0, {content: ""});
+    // debugger;
   };
 
   ctrl.removeField = function(field, array) {
@@ -40,11 +54,26 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
   ctrl.submit = function(){
     ctrl.transformed = true
     ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){return d.content});
-    DataService.postRecipe(ctrl.recipe)
-    .then(function(result){
-      $state.go('home.recipe', {id: result.data.id});
-      flash.success = 'Recipe created!';
-    });
+    // ctrl.recipe.directions_attributes = ctrl.recipe.directions;
+    // delete ctrl.recipe.directions
+    // debugger;
+    if (!ctrl.recipe.id) {
+      DataService.postRecipe(ctrl.recipe)
+      .then(function(result){
+        $state.go('home.recipe', {id: result.data.id});
+        flash.success = 'Recipe created!';
+      });
+    }
+    else {
+
+      // ctrl.recipe.ingredients_attributes.forEach(function(i){delete i.id});
+
+      DataService.updateRecipe(ctrl.recipe)
+      .then(function(result){
+        $state.go($state.$current, null, { reload: true });
+        flash.success = 'Recipe updated!';
+      });
+    }
   };
 
 
