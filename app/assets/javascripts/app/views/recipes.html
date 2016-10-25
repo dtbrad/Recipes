@@ -9,3 +9,9 @@
     {{recipe.title}}
   </a>
 </div>
+
+<div data-as-sortable="dragControlListeners" data-ng-model="ctrl.presidents">
+      <li class="list-group-item" data-ng-repeat="president in ctrl.presidents" data-as-sortable-item>
+        <div data-as-sortable-item-handle>{{ ctrl.presidents.indexOf(president) + 1}}. {{ president }}</div>
+      </li>
+    </div>

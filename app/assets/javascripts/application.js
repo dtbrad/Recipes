@@ -3,6 +3,7 @@
 //= require angular
 //= require angular-flash
 //= require angular-ui-router
+//= require ng-sortable
 //= require angular-rails-templates
 //= require angular-messages
 //= require_tree .

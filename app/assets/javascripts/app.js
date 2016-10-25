@@ -1,5 +1,5 @@
 angular
-.module('app', ['angular-flash.service', 'angular-flash.flash-alert-directive', 'ui.router', 'templates', 'ngMessages'])
+.module('app', ['as.sortable','angular-flash.service', 'angular-flash.flash-alert-directive', 'ui.router', 'templates', 'ngMessages'])
 .config(["flashProvider","$stateProvider", "$urlRouterProvider", function(flashProvider, $stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
