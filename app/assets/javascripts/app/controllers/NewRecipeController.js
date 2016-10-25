@@ -1,15 +1,15 @@
 NewRecipeController.$inject = ["flash", "$state", "$stateParams", "DataService", "ingredients", "recipe"];
 function NewRecipeController(flash, $state, $stateParams, DataService, ingredients, recipe) {
 
-  var ctrl = this
+  ctrl = this
   ctrl.ingredientInput = {name: "", quantity: ""}
   ctrl.ingredients = ingredients.data
   ctrl.no_drag = false
 
   ctrl.recipe = {
                   title: "First Recipe",
-                  directions: [],
-                  ingredients_attributes: []
+                  directions: [{content: ""}],
+                  ingredients_attributes: [{ingredient_name: "", quantity_prep: ""}]
                 }
 
   ctrl.addDirection = function(input){
@@ -21,16 +21,18 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
     array.splice(entry, 1)
   }
 
-  ctrl.addIngredient = function(input){
-    ctrl.recipe.ingredients_attributes.push({ingredient_name: input.name, quantity_prep: input.quantity })
-    ctrl.ingredientInput = ""
+  ctrl.addIngredient = function(){
+    ctrl.recipe.ingredients_attributes.push({ingredient_name: "", quantity_prep: "" })
+  }
+  ctrl.addDirection = function(){
+    ctrl.recipe.directions.push({content: ""})
   }
 
-  ctrl.setIngredient = function(selectedValue){
+  ctrl.setIngredient = function(selectedValue, ingredientEntry){
     if (selectedValue)
-    { ctrl.ingredientInput.name = selectedValue.name }
+    { ingredientEntry.ingredient_name = selectedValue.name }
     else
-    { ctrl.ingredientInput.name = "" }
+    { ingredientEntry.ingredient_name = "" }
   }
 
 

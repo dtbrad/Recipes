@@ -1,28 +1,37 @@
 <div class="row">
 
-  <div class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
     <h4 class="text-center"> {{ ctrl.recipe.title}}</h4>
 
   <div>
     <h5>Ingredients</h5>
     <div is-disabled="ctrl.no_drag" data-as-sortable="dragControlListeners" data-ng-model="ctrl.recipe.ingredients_attributes">
       <li class="list-group-item" data-ng-repeat="ingredient in ctrl.recipe.ingredients_attributes" data-as-sortable-item>
-        <div ng-hide="ingredient.edit" data-as-sortable-item-handle> {{ ingredient.ingredient_name }}, {{ ingredient.quantity_prep }} <span class="tag tag-default tag-pill pull-right">
+        <div ng-show="ingredient.display" data-as-sortable-item-handle> {{ ingredient.ingredient_name }}, {{ ingredient.quantity_prep }} <span class="tag tag-default tag-pill pull-right">
           <a href="" ng-click="ctrl.removeEntry(ctrl.recipe.ingredients_attributes.indexOf(ingredient), ctrl.recipe.ingredients_attributes)"> delete </a> |
-          <a href="" ng-click="ingredient.edit=true"> edit </a>
+          <a href="" ng-click="ingredient.display=false"> edit </a> |
+          <a href="" ng-click="ctrl.addIngredient()"> add another </a>
         </div>
-        <div ng-show="ingredient.edit">
-          <form class="form-inline">
+        <div ng-hide="ingredient.display">
+          <form class="form-inline" ng-submit="ingredient.display=true">
+            <select class="form-control"
+                    name="ingredientSelect"
+                    ng-model="selectedIngredient"
+                    ng-options='x.name for x in ctrl.ingredients'
+                    ng-change="ctrl.setIngredient(selectedIngredient, ingredient)">
+                    <option value="">Select from menu...</option>
+            </select>
             <input class="form-control"
+                   ng-show="!selectedIngredient"
                    name="editIngredientName"
-                   ng-model="ingredient.ingredient_name">
+                   ng-model="ingredient.ingredient_name"
+                   placeholder="...or enter one here">
             <input class="form-control"
                    name="editIngredientQuantity"
-                   ng-model="ingredient.quantity_prep">
-            <button class="btn btn-primary btn-sm"
-                    ng-click="ingredient.edit=false">
-                    done
-            </button>
+                   ng-model="ingredient.quantity_prep"
+                   placeholder="enter quantity and prep">
+            <input type="submit" class="btn btn-primary" value="add">
+            <button class="btn btn-primary" ng-click="ctrl.removeEntry(ingredient, ctrl.recipe.ingredients_attributes)" value="remove">remove</button>
           </form>
         </div>
       </li>
@@ -33,56 +42,23 @@
     <h5>Directions</h5>
     <div is-disabled="ctrl.no_drag" data-as-sortable="dragControlListeners" data-ng-model="ctrl.recipe.directions">
       <li class="list-group-item" data-ng-repeat="direction in ctrl.recipe.directions" data-as-sortable-item>
-        <div ng-hide="direction.edit" data-as-sortable-item-handle>{{ ctrl.recipe.directions.indexOf(direction) + 1}}. {{ direction.content }} <span class="tag tag-default tag-pill pull-right">
-          <a href="" ng-click="ctrl.removeDirection(ctrl.recipe.directions.indexOf(direction), ctrl.recipe.directions)"> delete </a> |
-          <a href="" ng-click="direction.edit=true"> edit </a>
+        <div ng-show="direction.display" data-as-sortable-item-handle>{{ ctrl.recipe.directions.indexOf(direction) + 1}}. {{ direction.content }} <span class="tag tag-default tag-pill pull-right">
+          <a href="" ng-click="ctrl.removeEntry(ctrl.recipe.directions.indexOf(direction), ctrl.recipe.directions)"> delete </a> |
+          <a href="" ng-click="direction.display=false"> edit </a> |
+          <a href="" ng-click="ctrl.addDirection()"> add another </a>
         </div>
-        <div ng-show="direction.edit">
+        <div ng-hide="direction.display">
           <textarea class="form-control"
                     name="editDirection"
                     ng-model="direction.content">
           </textarea>
-          <a href="" ng-click="direction.edit=false"> done </a>
+          <a href="" ng-click="direction.display=true"> add </a>
         </div>
       </li>
     </div>
   </div>
 
   </br>
-
-  <form name="recipeIngredientsForm" ng-submit="ctrl.addIngredient(ctrl.ingredientInput)">
-    <select class="form-control"
-            name="ingredientSelect"
-            ng-model="selectedIngredient"
-            ng-options='x.name for x in ctrl.ingredients'
-            ng-change="ctrl.setIngredient(selectedIngredient)">
-            <option value="">Select an ingredient from this menu...</option>
-    </select>
-    <input  class="form-control"
-            ng-show="!selectedIngredient"
-            type="text"
-            name="ingredientName"
-            ng-model="ctrl.ingredientInput.name"
-            placeholder="Enter Ingredient">
-    <input  class="form-control"
-            type="text"
-            name="ingredientQuantity"
-            ng-model="ctrl.ingredientInput.quantity"
-            placeholder="Enter Quantity and Preparation">
-
-    <input type="submit" class="btn btn-primary" value="add ingredient to recipe">
-  </form>
-</br>
-
-  <form name="recipeDirectionsForm" ng-submit="ctrl.addDirection(ctrl.directionInput)">
-    <textarea
-            class="form-control"
-            name="direction"
-            ng-model="ctrl.directionInput"
-            placeholder="Enter an individual step in your directions">
-    </textarea>
-    <input type="submit" class="btn btn-primary" value="add direction to recipe">
-  </form>
 
 
 </div>
