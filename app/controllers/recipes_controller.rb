@@ -11,6 +11,7 @@ class RecipesController < ApplicationController
   end
 
   def create
+    binding.pry
     @recipe = Recipe.new(recipe_params)
     @recipe.save
     render json: @recipe, status: 201
