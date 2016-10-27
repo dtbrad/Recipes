@@ -1,17 +1,30 @@
 NewRecipeController.$inject = ["flash", "$state", "$stateParams", "DataService", "ingredients", "recipe"];
 function NewRecipeController(flash, $state, $stateParams, DataService, ingredients, recipe) {
-  debugger;
-  ctrl = this
+
+  var ctrl = this
   ctrl.ingredientInput = {name: "", quantity: ""}
   ctrl.ingredients = ingredients.data
-  ctrl.no_drag = false
-  ctrl.newArray = ["daniel", "brad", "theodore", "julia"]
 
-  ctrl.recipe = {
-                  title: "",
-                  directions: [{content: ""}],
-                  ingredients_attributes: [{ingredient_name: "", quantity_prep: ""}]
-                }
+  if ($stateParams.id)
+    {
+      ctrl.recipe = recipe.data
+      ctrl.recipe.ingredients_attributes = ctrl.recipe.recipe_ingredients
+      delete ctrl.recipe.recipe_ingredients
+      ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){ return {content: d}});
+      ctrl.display = true
+      // ctrl.recipe.ingredients_attributes.forEach(function(ing){ing.display = true});
+      // ctrl.recipe.directions.forEach(function(step){step.display = true});
+    }
+  else
+    {
+      ctrl.recipe = {
+                    title: "",
+                    directions: [{content: ""}],
+                    ingredients_attributes: [{ingredient_name: "", quantity_prep: ""}]
+                  }
+      ctrl.edit = true
+    }
+
 
   ctrl.dragControlListeners = {
     accept: function (sourceItemHandleScope, destSortableScope) {
@@ -46,13 +59,20 @@ function NewRecipeController(flash, $state, $stateParams, DataService, ingredien
 
   ctrl.submit = function(){
     ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){return d.content});
-    DataService.postRecipe(ctrl.recipe)
-    .then(function(result){
-      $state.go('home.recipe', {id: result.data.id});
-      flash.success = 'Recipe created!';
-    });
-
-
+    if (!ctrl.recipe.id) {
+      DataService.postRecipe(ctrl.recipe)
+      .then(function(result){
+        $state.go('home.recipe', {id: result.data.id});
+        flash.success = 'Recipe created!';
+      });
+    }
+    else {
+      DataService.updateRecipe(ctrl.recipe)
+      .then(function(result){
+        flash.success = 'Recipe updated!';
+        $state.go($state.$current, null, { reload: true });
+      });
+    }
   };
 
 

@@ -15,7 +15,6 @@ function DataService($http) {
   }
 
   this.postRecipe = function(recipe) {
-debugger;
     return $http.post('/recipes', {recipe: recipe})
   }
 

@@ -11,7 +11,6 @@ class RecipesController < ApplicationController
   end
 
   def create
-    binding.pry
     @recipe = Recipe.new(recipe_params)
     @recipe.save
     render json: @recipe, status: 201
@@ -19,7 +18,6 @@ class RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-
     @recipe.update(recipe_params)
     @recipe.save
   end

@@ -1,101 +1,106 @@
-<div class="row">
-  <div class="col-md-12">
+<form name="recipeForm" ng-submit="ctrl.submit()" novalidate>
 
-    <h4 class="text-center" ng-show="titleDisplay"><a href="" ng-click="titleDisplay=false"> {{ctrl.recipe.title}} </a></h4>
-    <form name="recipeForm" ng-submit="recipeForm.$valid && ctrl.submit()" novalidate>
+  <div ng-show="ctrl.display">
+    <h4 class= "text-center"> {{ctrl.recipe.title}}</h4>
+  </div>
+  <div ng-hide="ctrl.display">
+    <label>Title</label>
+    <input  class="form-control"
+            type="text"
+            name="recipeTitle"
+            ng-model="ctrl.recipe.title"
+            placeholder="Enter a Recipe Title"
+            required>
 
-      <input style="text-align: center"
-             class="form-control"
-             type="text"
-             name="recipeTitle"
-             ng-model="ctrl.recipe.title"
-             placeholder="Enter a Recipe Title"
-             required>
-
-      <div style="color:red" ng-messages="recipeForm.recipeTitle.$error" ng-if="recipeForm.recipeTitle.$touched || recipeForm.$submitted">
-        <div ng-message="required">Recipe requires a title</div>
-      </div>
-
-    </br></br>
-
-
-    <div>
-      <label>Ingredients</label>
-      <div is-disabled="ctrl.no_drag" data-as-sortable="ctrl.dragControlListeners" data-ng-model="ctrl.recipe.ingredients_attributes">
-        <li class="list-group-item" data-ng-repeat="ingredient in ctrl.recipe.ingredients_attributes" data-as-sortable-item>
-          <div ng-show="ingredient.display" data-as-sortable-item-handle> {{ ingredient.ingredient_name }}, {{ ingredient.quantity_prep }} <span class="tag tag-default tag-pill pull-right">
-            <span ng-show="ctrl.recipe.ingredients_attributes.indexOf(ingredient) == (ctrl.recipe.ingredients_attributes.length - 1)"><a href="" ng-click="ctrl.addIngredient()"> add another </a> | </span>
-            <span ng-show="ctrl.recipe.ingredients_attributes.length > 1"><a href=""  ng-click="ctrl.removeEntry(ctrl.recipe.ingredients_attributes.indexOf(ingredient), ctrl.recipe.ingredients_attributes)"> delete </a> | </span>
-            <a href="" ng-click="ingredient.display=false"> edit </a>
-          </div>
-          <div ng-hide="ingredient.display">
-            <ng-form name="ingredientForm" class="form-inline">
-              <select ng-show="ctrl.ingredients.length > 0"
-                      class="form-control"
-                      name="ingredientSelect"
-                      ng-model="selectedIngredient"
-                      ng-options='x.name for x in ctrl.ingredients'
-                      ng-change="ctrl.setIngredient(selectedIngredient, ingredient)">
-                      <option value="">Select from menu...</option>
-              </select>
-              <input class="form-control"
-                     ng-show="!selectedIngredient"
-                     name="editIngredientName"
-                     ng-model="ingredient.ingredient_name"
-                     placeholder="enter new ingredient"
-                     required>
-              <input class="form-control"
-                     name="editIngredientQuantity"
-                     ng-model="ingredient.quantity_prep"
-                     placeholder="enter quantity and prep"
-                     required>
-              <span class="tag tag-default tag-pill pull-right">
-              <button type="button" ng-show="ingredientForm.$valid && ctrl.recipe.ingredients_attributes.indexOf(ingredient) == (ctrl.recipe.ingredients_attributes.length - 1)" ng-click="ingredient.display=true" class="btn btn-primary">add</button>
-              <button ng-show="ctrl.recipe.ingredients_attributes.length > 1"class="btn btn-primary" ng-click="ctrl.removeEntry(ingredient, ctrl.recipe.ingredients_attributes)" value="remove">remove</button>
-            </span>
-            </ng-form>
-          </div>
-        </li>
-      </div>
+    <div style="color:red" ng-messages="recipeForm.recipeTitle.$error" ng-if="recipeForm.recipeTitle.$touched || recipeForm.$submitted">
+      <div ng-message="required">Recipe requires a title</div>
     </div>
+  </div>
 
-    <div>
-      <label>Directions</label>
-      <div is-disabled="ctrl.no_drag" data-as-sortable="ctrl.dragControlListeners" data-ng-model="ctrl.recipe.directions">
-        <li class="list-group-item" data-ng-repeat="direction in ctrl.recipe.directions" data-as-sortable-item>
-          <div ng-show="direction.display" data-as-sortable-item-handle>
+  </br>
 
-            <p>{{ ctrl.recipe.directions.indexOf(direction) + 1}}. {{ direction.content }}</p>
-            <p>
-              <span ng-show="ctrl.recipe.directions.indexOf(direction) == (ctrl.recipe.directions.length - 1)"><a href="" ng-click="ctrl.addDirection()"> add another </a> | </span>
-              <span ng-show="ctrl.recipe.directions.length > 1"><a href="" ng-click="ctrl.removeEntry(ctrl.recipe.directions.indexOf(direction), ctrl.recipe.directions)"> delete </a> | </span>
-              <a href="" ng-click="direction.display=false"> edit </a>
-            </p>
+  <label>Ingredients</label>
+  <div is-disabled="ctrl.no_drag" data-as-sortable="ctrl.dragControlListeners" data-ng-model="ctrl.recipe.ingredients_attributes">
+    <li class="list-group-item" data-ng-repeat="ingredient in ctrl.recipe.ingredients_attributes" data-as-sortable-item>
+      <div class="row" data-as-sortable-item-handle>
+
+        <div class="col-md-8">
+          <ng-form name="ingredientForm">
+          <div ng-show="ctrl.display">
+            {{ ingredient.ingredient_name }}, {{ ingredient.quantity_prep }}
           </div>
 
-          <div ng-hide="direction.display">
-            <textarea class="form-control"
-                      name="editDirection"
-                      ng-model="direction.content">
-            </textarea>
-            <a href="" ng-click="direction.display=true"> add </a>
-            <span ng-show="ctrl.recipe.directions.length > 1"> |
-              <a href="" ng-click="ctrl.removeEntry(ctrl.recipe.directions.indexOf(direction), ctrl.recipe.directions)"> remove </a>
-            </span>
-
+          <div ng-hide="ctrl.display" class="form-inline">
+            <select ng-show="ctrl.ingredients.length > 0"
+                    class="form-control"
+                    name="ingredientSelect"
+                    ng-model="selectedIngredient"
+                    ng-options='x.name for x in ctrl.ingredients'
+                    ng-change="ctrl.setIngredient(selectedIngredient, ingredient)">
+                    <option value="">Select from menu...</option>
+            </select>
+            <input class="form-control"
+                   ng-show="!selectedIngredient"
+                   name="editIngredientName"
+                   ng-model="ingredient.ingredient_name"
+                   placeholder="enter new ingredient"
+                   required>
+            <input class="form-control"
+                   name="editIngredientQuantity"
+                   ng-model="ingredient.quantity_prep"
+                   placeholder="enter quantity and prep"
+                   required>
           </div>
-        </li>
+          </ng-form>
+        </div>
+
+        <div class="col-md-4" ng-hide="ctrl.display">
+          <div class="pull-right">
+            <button type="button" ng-show="ctrl.recipe.ingredients_attributes.indexOf(ingredient) == (ctrl.recipe.ingredients_attributes.length - 1)" ng-click="ctrl.addIngredient()"class="btn btn-secondary btn-xs">add another field</button>
+            <button type="button" ng-show="ctrl.recipe.ingredients_attributes.length > 1" class="btn btn-secondary btn-xs" ng-click="ctrl.removeEntry(ingredient, ctrl.recipe.ingredients_attributes)">remove</button>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-    <br>
-
-    <input  class="btn btn-primary"
-            type="submit"
-            value="submit recipe">
-
-          </form>
+    </li>
+  </div>
 
 
-</div>
-</div>
+  </br>
+
+        <label>Directions</label>
+        <div is-disabled="ctrl.no_drag" data-as-sortable="ctrl.dragControlListeners" data-ng-model="ctrl.recipe.directions">
+          <li class="list-group-item" data-ng-repeat="direction in ctrl.recipe.directions" data-as-sortable-item>
+            <div class="row">
+              <div class="col-md-3">
+                <ng-form name="directionForm">
+                <div ng-show="ctrl.display">
+                  {{ ctrl.recipe.directions.indexOf(direction) + 1}}. {{ direction.content }}
+                </div>
+                <div ng-hide="ctrl.display" class="form-inline">
+                  <textarea class="form-control"
+                            name="editDirection"
+                            ng-model="direction.content">
+                  </textarea>
+                </div>
+                </ng-form>
+              </div>
+
+              <div class="col-md-9" data-as-sortable-item-handle>
+                <div class="pull-right" ng-hide="ctrl.display">
+                  <button type="button" ng-show="ctrl.recipe.directions.indexOf(direction) == (ctrl.recipe.directions.length - 1)" ng-click="ctrl.addDirection()"class="btn btn-secondary btn-xs">add another field</button>
+                  <button type="button" ng-show="ctrl.recipe.directions.length > 1" class="btn btn-secondary btn-xs" ng-click="ctrl.removeEntry(direction, ctrl.recipe.directions)">remove</button>
+                </div>
+              </div>
+
+            </div>
+          </li>
+        </div>
+      </br>
+      <input  ng-show="!ctrl.display"
+              class="btn btn-secondary"
+              type="submit"
+              value="submit">
+    </form>
+    </br>
+    <button type="button" ng-show="ctrl.recipe.id && ctrl.display" ng-click="ctrl.display=false" class="btn btn-secondary btn-xs">Edit</button>
