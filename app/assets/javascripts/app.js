@@ -13,8 +13,8 @@ angular
     })
     .state('home.newRecipe', {
       url:'recipes/new',
-      controller: 'NewRecipeController as ctrl',
-      templateUrl: 'app/views/newRecipe.html',
+      controller: 'RecipeController as ctrl',
+      templateUrl: 'app/views/recipe.html',
       resolve: {
         recipe: ["$stateParams", "DataService", function ($stateParams, DataService) {
           return ""
@@ -26,8 +26,8 @@ angular
     })
     .state('home.recipe', {
       url:'recipes/:id',
-      controller: 'NewRecipeController as ctrl',
-      templateUrl: 'app/views/newRecipe.html',
+      controller: 'RecipeController as ctrl',
+      templateUrl: 'app/views/recipe.html',
       resolve: {
         recipe: ["$stateParams", "DataService", function ($stateParams, DataService) {
             return DataService.getRecipe($stateParams.id);
@@ -48,5 +48,5 @@ angular
       }
     })
     $urlRouterProvider.otherwise('welcome');
-    
+
 }])
