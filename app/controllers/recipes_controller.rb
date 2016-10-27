@@ -20,6 +20,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.update(recipe_params)
     @recipe.save
+    render json: @recipe, status: 201
   end
 
 

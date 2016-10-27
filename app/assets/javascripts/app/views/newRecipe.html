@@ -72,7 +72,7 @@
         <div is-disabled="ctrl.no_drag" data-as-sortable="ctrl.dragControlListeners" data-ng-model="ctrl.recipe.directions">
           <li class="list-group-item" data-ng-repeat="direction in ctrl.recipe.directions" data-as-sortable-item>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-6">
                 <ng-form name="directionForm">
                 <div ng-show="ctrl.display">
                   {{ ctrl.recipe.directions.indexOf(direction) + 1}}. {{ direction.content }}
@@ -86,7 +86,7 @@
                 </ng-form>
               </div>
 
-              <div class="col-md-9" data-as-sortable-item-handle>
+              <div class="col-md-6" data-as-sortable-item-handle>
                 <div class="pull-right" ng-hide="ctrl.display">
                   <button type="button" ng-show="ctrl.recipe.directions.indexOf(direction) == (ctrl.recipe.directions.length - 1)" ng-click="ctrl.addDirection()"class="btn btn-secondary btn-xs">add another field</button>
                   <button type="button" ng-show="ctrl.recipe.directions.length > 1" class="btn btn-secondary btn-xs" ng-click="ctrl.removeEntry(direction, ctrl.recipe.directions)">remove</button>

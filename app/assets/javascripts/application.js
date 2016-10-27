@@ -1,7 +1,7 @@
 //= require jquery
 //= rquire bootstrap-sass
 //= require angular
-//= require angular-flash
+//= require angular-flash-alert
 //= require angular-ui-router
 //= require ng-sortable
 //= require angular-rails-templates

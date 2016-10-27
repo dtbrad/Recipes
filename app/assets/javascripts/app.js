@@ -1,6 +1,6 @@
 angular
-.module('app', ['as.sortable','angular-flash.service', 'angular-flash.flash-alert-directive', 'ui.router', 'templates', 'ngMessages'])
-.config(["flashProvider","$stateProvider", "$urlRouterProvider", function(flashProvider, $stateProvider, $urlRouterProvider) {
+.module('app', ['ngFlash', 'as.sortable','ui.router', 'templates', 'ngMessages'])
+.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
       url:'/',
@@ -48,5 +48,5 @@ angular
       }
     })
     $urlRouterProvider.otherwise('welcome');
-    flashProvider.errorClassnames.push('alert-danger');
+    
 }])
