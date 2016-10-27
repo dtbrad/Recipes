@@ -17,7 +17,7 @@ function NewRecipeController(Flash, $state, $stateParams, DataService, ingredien
 
   ctrl.flashDelete = function(){
     var message = 'Recipe deleted';
-    var id = Flash.create('success', message, 3000, {class: 'custom-class', id: 'custom-id'}, true);
+    var id = Flash.create('warning', message, 3000, {class: 'custom-class', id: 'custom-id'}, true);
   }
 
   if ($stateParams.id)
