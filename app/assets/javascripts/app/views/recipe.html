@@ -10,10 +10,12 @@
             name="recipeTitle"
             ng-model="ctrl.recipe.title"
             placeholder="Enter a Recipe Title"
-            required>
+            required
+            title-taken>
 
     <div style="color:red" ng-messages="recipeForm.recipeTitle.$error" ng-if="recipeForm.recipeTitle.$touched || recipeForm.$submitted">
       <div ng-message="required">Recipe requires a title</div>
+      <div ng-message="titleTaken">That title is already taken</div>
     </div>
   </div>
 

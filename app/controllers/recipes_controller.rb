@@ -14,6 +14,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.save
     render json: @recipe, status: 201
+
   end
 
   def update
