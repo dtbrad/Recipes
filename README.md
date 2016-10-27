@@ -4,7 +4,7 @@
 
 # Description
 
-Angular Recipes is a web application built with a Rails back end and Angular front end that allows a user to create and edit recipes, and also search for them by ingredient. I know, amazing!!!! In my last Angular app (Angular Stereo Builder), I went a little hog wild with custom directives. For this one I wanted to see what I could accomplish using only Angular's built-in library and third party modules.
+Angular Recipes is a web application built with a Rails back end and Angular front end that allows a user to create and edit recipes, and also search for them by ingredient. I know, amazing!!!! In my last Angular app (Angular Stereo Builder), I went a little hog wild with custom directives. For this one I wanted to see what I could accomplish using almost exclusively Angular's built-in library and third party modules.
 
 
 # Installation
