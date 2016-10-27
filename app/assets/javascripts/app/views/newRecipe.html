@@ -1,4 +1,4 @@
-<form name="recipeForm" ng-submit="ctrl.submit()" novalidate>
+<form name="recipeForm" ng-submit="recipeForm.$valid && ctrl.submit()" novalidate>
 
   <div ng-show="ctrl.display">
     <h4 class= "text-center"> {{ctrl.recipe.title}}</h4>
@@ -26,31 +26,45 @@
 
         <div class="col-md-8">
           <ng-form name="ingredientForm">
-          <div ng-show="ctrl.display">
-            {{ ingredient.ingredient_name }}, {{ ingredient.quantity_prep }}
-          </div>
+            <div ng-show="ctrl.display">
+              {{ ingredient.ingredient_name }}, {{ ingredient.quantity_prep }}
+            </div>
+            <div ng-hide="ctrl.display">
+              <div class="form-inline">
 
-          <div ng-hide="ctrl.display" class="form-inline">
-            <select ng-show="ctrl.ingredients.length > 0"
-                    class="form-control"
-                    name="ingredientSelect"
-                    ng-model="selectedIngredient"
-                    ng-options='x.name for x in ctrl.ingredients'
-                    ng-change="ctrl.setIngredient(selectedIngredient, ingredient)">
-                    <option value="">Select from menu...</option>
-            </select>
-            <input class="form-control"
-                   ng-show="!selectedIngredient"
-                   name="editIngredientName"
-                   ng-model="ingredient.ingredient_name"
-                   placeholder="enter new ingredient"
-                   required>
-            <input class="form-control"
-                   name="editIngredientQuantity"
-                   ng-model="ingredient.quantity_prep"
-                   placeholder="enter quantity and prep"
-                   required>
-          </div>
+                <select ng-show="ctrl.ingredients.length > 0"
+                        class="form-control"
+                        name="ingredientSelect"
+                        ng-model="selectedIngredient"
+                        ng-options='x.name for x in ctrl.ingredients'
+                        ng-change="ctrl.setIngredient(selectedIngredient, ingredient)">
+                        <option value="">Select from menu...</option>
+                </select>
+
+                <input class="form-control"
+                       ng-show="!selectedIngredient"
+                       name="ingredientName"
+                       ng-model="ingredient.ingredient_name"
+                       placeholder="enter new ingredient"
+                       required>
+
+                <input class="form-control"
+                       name="ingredientQuantity"
+                       ng-model="ingredient.quantity_prep"
+                       placeholder="enter quantity and prep"
+                       required>
+              </div>
+
+              <div class="form-group" style="color:red">
+                <div ng-messages="ingredientForm.ingredientName.$error">
+                  <div ng-message="required" ng-if="ingredientForm.ingredientName.$touched ||ingredientForm.$$parentForm.$submitted" > This ingredient entry lacks a name </div>
+                </div>
+                <div ng-messages="ingredientForm.ingredientQuantity.$error">
+                  <div ng-message="required" ng-if="ingredientForm.ingredientQuantity.$touched || ingredientForm.$$parentForm.$submitted"> This ingredient entry lacks a quantity </div>
+                </div>
+              </div>
+
+            </div>
           </ng-form>
         </div>
 
@@ -77,11 +91,17 @@
                 <div ng-show="ctrl.display">
                   {{ ctrl.recipe.directions.indexOf(direction) + 1}}. {{ direction.content }}
                 </div>
-                <div ng-hide="ctrl.display" class="form-inline">
+                <div ng-hide="ctrl.display">
+                  <div class="form-inline">
                   <textarea class="form-control"
-                            name="editDirection"
-                            ng-model="direction.content">
+                            name="direction"
+                            ng-model="direction.content"
+                            required>
                   </textarea>
+                </div>
+                  <div class="form-group" style="color:red" ng-messages="directionForm.direction.$error">
+                    <div ng-message="required" ng-show="!ctrl.transformed" ng-if="directionForm.direction.$touched || directionForm.$$parentForm.$submitted"> This direction text box is blank </div>
+                  </div>
                 </div>
                 </ng-form>
               </div>

@@ -1,7 +1,7 @@
 NewRecipeController.$inject = ["Flash", "$state", "$stateParams", "DataService", "ingredients", "recipe"];
 function NewRecipeController(Flash, $state, $stateParams, DataService, ingredients, recipe) {
-
   var ctrl = this
+  ctrl.transformed = false;
   ctrl.ingredientInput = {name: "", quantity: ""}
   ctrl.ingredients = ingredients.data
 
@@ -53,7 +53,7 @@ function NewRecipeController(Flash, $state, $stateParams, DataService, ingredien
   }
 
   ctrl.removeEntry = function(entry, array){
-    array.splice(entry, 1)
+    array.splice(array.indexOf(entry), 1)
   }
 
   ctrl.addIngredient = function(){
@@ -71,6 +71,7 @@ function NewRecipeController(Flash, $state, $stateParams, DataService, ingredien
   }
 
   ctrl.submit = function(){
+    ctrl.transformed=true
     ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){return d.content});
     if (!ctrl.recipe.id) {
       DataService.postRecipe(ctrl.recipe)
