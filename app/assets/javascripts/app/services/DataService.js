@@ -20,8 +20,11 @@ function DataService($http) {
 
   this.updateRecipe = function(recipe) {
     recipe = {recipe}
-
     return $http.patch('/recipes/' + recipe.recipe.id, recipe )
+  }
+
+  this.deleteRecipe = function(id) {
+    return $http.delete('/recipes/' + id);
   }
 
 }

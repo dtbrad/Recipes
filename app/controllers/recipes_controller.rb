@@ -23,6 +23,10 @@ class RecipesController < ApplicationController
     render json: @recipe, status: 201
   end
 
+  def destroy
+    Recipe.find(params[:id]).destroy
+  end
+
 
   private
 

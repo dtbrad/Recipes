@@ -7,12 +7,17 @@ function NewRecipeController(Flash, $state, $stateParams, DataService, ingredien
 
   ctrl.flashCreate = function(){
     var message = 'Recipe created';
-    var id = Flash.create('success', message, 5000, {class: 'custom-class', id: 'custom-id'}, true);
+    var id = Flash.create('success', message, 3000, {class: 'custom-class', id: 'custom-id'}, true);
   }
 
   ctrl.flashUpdate = function(){
     var message = 'Recipe updated';
-    var id = Flash.create('success', message, 5000, {class: 'custom-class', id: 'custom-id'}, true);
+    var id = Flash.create('success', message, 3000, {class: 'custom-class', id: 'custom-id'}, true);
+  }
+
+  ctrl.flashDelete = function(){
+    var message = 'Recipe deleted';
+    var id = Flash.create('success', message, 3000, {class: 'custom-class', id: 'custom-id'}, true);
   }
 
   if ($stateParams.id)
@@ -22,8 +27,6 @@ function NewRecipeController(Flash, $state, $stateParams, DataService, ingredien
       delete ctrl.recipe.recipe_ingredients
       ctrl.recipe.directions = ctrl.recipe.directions.map(function(d){ return {content: d}});
       ctrl.display = true
-      // ctrl.recipe.ingredients_attributes.forEach(function(ing){ing.display = true});
-      // ctrl.recipe.directions.forEach(function(step){step.display = true});
     }
   else
     {
@@ -73,23 +76,28 @@ function NewRecipeController(Flash, $state, $stateParams, DataService, ingredien
       DataService.postRecipe(ctrl.recipe)
       .then(function(result){
         $state.go('home.recipe', {id: result.data.id});
-        ctrl.flashCreate()
+        ctrl.flashCreate();
       });
     }
     else {
       DataService.updateRecipe(ctrl.recipe)
       .then(function(result){
-        // flash.success = 'Recipe updated!';
-        // $state.go('home.recipe', {id: result.data.id});
-        // $state.go('home.recipe', null, { reload: true })
-        // $state.go('home.recipe', {id: result.data.id});
         $state.go($state.$current, null, { reload: true });
-        ctrl.flashUpdate()
-
-
+        ctrl.flashUpdate();
       });
     }
   };
+
+  ctrl.deleteRecipe = function(){
+    if (confirm('Are you sure?'))
+    {
+    DataService.deleteRecipe(ctrl.recipe.id)
+    .then(function(result){
+      $state.go('home.recipes');
+      ctrl.flashDelete();
+    })
+  }
+  }
 
 
 

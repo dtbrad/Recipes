@@ -13,8 +13,4 @@ class Recipe < ApplicationRecord
     end
   end
 
-  # def directions_attributes=(attributes)
-  #   binding.pry
-  # end
-
 end
