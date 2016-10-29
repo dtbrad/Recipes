@@ -108,7 +108,7 @@
                     <div ng-message="required" ng-show="!ctrl.transformed" ng-if="directionForm.direction.$touched || directionForm.$$parentForm.$submitted"> This direction text box is blank </div>
                   </div>
                 </div>
-                </ng-form>
+
               </div>
 
               <div class="col-md-6">
@@ -125,13 +125,16 @@
         </div>
       </br>
 
-    </form>
+
     </br>
     <div class="form-inline">
       <input  ng-show="!ctrl.display"
               class="btn btn-primary"
               type="submit"
               value="submit">
+      </ng-form>
+        </form>
+
     <button type="button" ng-show="ctrl.recipe.id && ctrl.display" ng-click="ctrl.display=false" class="btn btn-secondary">Edit</button>
     <button type="button" ng-show="ctrl.recipe.id" ng-click="ctrl.deleteRecipe()" class="btn btn-danger">Delete</button>
 </div>

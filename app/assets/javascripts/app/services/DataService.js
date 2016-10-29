@@ -19,7 +19,7 @@ function DataService($http) {
   }
 
   this.updateRecipe = function(recipe) {
-    recipe = {recipe}
+    recipe = recipe
     return $http.patch('/recipes/' + recipe.recipe.id, recipe )
   }
 
